@@ -9,6 +9,7 @@ def imshow(image,
            plot=None,
            colorbar: bool = False,
            colormap=None,
+           zoom_factor: float = 1,
            alpha: float = None,
            continue_drawing: bool = False,
            axes:bool = False,
@@ -39,6 +40,8 @@ def imshow(image,
         Fqlse: no colorbar (default)
     colormap: str
         matplotlib colormap or microfilm names such as "pure_green", "pure_magenta",...
+    zoom_factor: float, optional
+        Allows showing the image larger (> 1) or smaller (<1)
     alpha: float
         blending value (between 0 and 1)
     continue_drawing: bool, optional
@@ -81,6 +84,9 @@ def imshow(image,
 
     if colormap.startswith("pure_"):
         colormap = create_colormap(colormap)
+    
+    if zoom_factor != 1.0:
+        image = slice(image, zoom_factor=zoom_factor)
 
     if labels:
         import matplotlib
